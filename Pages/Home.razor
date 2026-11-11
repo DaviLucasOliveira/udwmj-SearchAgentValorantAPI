@@ -1,0 +1,181 @@
+﻿@page "/"
+@using System.Net.Http.Json
+@using System.Text.Json.Serialization
+@inject HttpClient Http
+
+<PageTitle>VALORANT | Agent Search</PageTitle>
+
+<div class="main-container">
+
+    <header class="topbar">
+        <div class="logo">
+            <span class="logo-icon">V</span>
+            <span>VALORANT</span>
+        </div>
+        <span class="topbar-label">AGENT DATABASE</span>
+    </header>
+
+    <section class="hero">
+        <span class="section-label">PROTOCOLO VALORANT</span>
+        <h1>AGENT <span>SEARCH</span></h1>
+        <p>Descubra informações sobre os agentes do universo VALORANT.</p>
+    </section>
+
+    <section class="search-card">
+        <label for="uuid">IDENTIFICAÇÃO DO AGENTE</label>
+
+        <div class="search-box">
+            <input id="uuid"
+                   @bind="uuid"
+                   placeholder="Insira o UUID do agente..." />
+
+            <button @onclick="BuscarAgente" disabled="@carregando">
+                @(carregando ? "BUSCANDO..." : "PESQUISAR")
+            </button>
+        </div>
+
+        <div class="examples">
+            <span>UUIDs para teste:</span>
+
+            <button class="example-btn"
+                    @onclick="() => UsarExemplo(uuid1)">
+                AGENTE 01
+            </button>
+
+            <button class="example-btn"
+                    @onclick="() => UsarExemplo(uuid2)">
+                AGENTE 02
+            </button>
+        </div>
+    </section>
+
+    @if (!string.IsNullOrEmpty(mensagem))
+    {
+        <div class="error-message">
+            <span>!</span>
+            @mensagem
+        </div>
+    }
+
+    @if (agente != null)
+    {
+        <section class="agent-result">
+
+            <div class="agent-image">
+                @if (!string.IsNullOrEmpty(agente.FullPortrait))
+                {
+                    <img src="@agente.FullPortrait"
+                         alt="@agente.DisplayName" />
+                }
+                else
+                {
+                    <span>IMAGEM INDISPONÍVEL</span>
+                }
+            </div>
+
+            <div class="agent-details">
+                <span class="section-label">AGENTE IDENTIFICADO</span>
+
+                <h2>@agente.DisplayName</h2>
+
+                <div class="red-line"></div>
+
+                <h3>DESCRIÇÃO</h3>
+
+                <p class="description">
+                    @agente.Description
+                </p>
+
+                <div class="agent-status">
+                    <span class="status-dot"></span>
+                    DADOS CARREGADOS COM SUCESSO
+                </div>
+            </div>
+
+        </section>
+    }
+
+    <footer>
+        <span>VALORANT AGENT SEARCH</span>
+        <span>DESENVOLVIDO COM VALORANT API</span>
+    </footer>
+
+</div>
+
+@code {
+    private string uuid = "";
+    private string mensagem = "";
+    private bool carregando = false;
+
+    private Agente? agente;
+
+    private const string uuid1 =
+        "e370fa57-4757-3604-3648-499e1f642d3f";
+
+    private const string uuid2 =
+        "a3bfb853-43b2-7238-a4f1-ad90e9e46bcc";
+
+    private async Task BuscarAgente()
+    {
+        mensagem = "";
+        agente = null;
+
+        if (string.IsNullOrWhiteSpace(uuid))
+        {
+            mensagem = "Informe o UUID do agente.";
+            return;
+        }
+
+        carregando = true;
+
+        try
+        {
+            var resposta = await Http.GetFromJsonAsync<RespostaAPI>(
+                $"v1/agents/{uuid.Trim()}");
+
+            if (resposta?.Status == 200 && resposta.Data != null)
+            {
+                agente = resposta.Data;
+            }
+            else
+            {
+                mensagem = "Agente não encontrado.";
+            }
+        }
+        catch
+        {
+            mensagem = "Erro ao consultar a API. Verifique sua conexão.";
+        }
+        finally
+        {
+            carregando = false;
+        }
+    }
+
+    private async Task UsarExemplo(string valor)
+    {
+        uuid = valor;
+        await BuscarAgente();
+    }
+
+    public class RespostaAPI
+    {
+        [JsonPropertyName("status")]
+        public int Status { get; set; }
+
+        [JsonPropertyName("data")]
+        public Agente? Data { get; set; }
+    }
+
+    public class Agente
+    {
+        [JsonPropertyName("displayName")]
+        public string DisplayName { get; set; } = "";
+
+        [JsonPropertyName("description")]
+        public string Description { get; set; } = "";
+
+        [JsonPropertyName("fullPortrait")]
+        public string FullPortrait { get; set; } = "";
+    }
+}

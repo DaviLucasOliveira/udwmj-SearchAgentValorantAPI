@@ -1,0 +1,364 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #111116;
+    color: #ffffff;
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+}
+
+.main-container {
+    max-width: 1150px;
+    margin: auto;
+    padding: 0 35px;
+}
+
+/* BARRA SUPERIOR */
+
+.topbar {
+    height: 85px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #292930;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.logo-icon {
+    background: #ff4655;
+    color: white;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    font-weight: 900;
+    transform: skew(-8deg);
+}
+
+.topbar-label {
+    color: #777780;
+    font-size: 11px;
+    letter-spacing: 3px;
+}
+
+/* APRESENTAÇÃO */
+
+.hero {
+    text-align: center;
+    padding: 85px 0 45px;
+}
+
+.section-label {
+    color: #ff4655;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 4px;
+}
+
+.hero h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(55px, 9vw, 95px);
+    font-weight: 900;
+    line-height: 1;
+    margin: 15px 0;
+    letter-spacing: 2px;
+}
+
+.hero h1 span {
+    color: #ff4655;
+}
+
+.hero p {
+    color: #92929c;
+    font-size: 14px;
+}
+
+/* PESQUISA */
+
+.search-card {
+    background: #1c1c24;
+    border: 1px solid #30303a;
+    padding: 28px;
+    border-radius: 5px;
+    max-width: 850px;
+    margin: 0 auto;
+}
+
+.search-card label {
+    display: block;
+    color: #b9b9c2;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+}
+
+.search-box {
+    display: flex;
+    gap: 10px;
+}
+
+.search-box input {
+    flex: 1;
+    min-width: 0;
+    background: #121218;
+    border: 1px solid #393943;
+    color: white;
+    padding: 16px;
+    border-radius: 3px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    outline: none;
+    transition: .2s;
+}
+
+.search-box input:focus {
+    border-color: #ff4655;
+}
+
+.search-box button {
+    background: #ff4655;
+    color: white;
+    border: none;
+    padding: 0 28px;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: .2s;
+}
+
+.search-box button:hover {
+    background: #d93645;
+}
+
+.search-box button:disabled {
+    opacity: .6;
+    cursor: wait;
+}
+
+/* EXEMPLOS */
+
+.examples {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.examples span {
+    color: #777780;
+    font-size: 11px;
+}
+
+.example-btn {
+    background: #292932;
+    color: #c5c5cd;
+    border: 1px solid #3a3a44;
+    padding: 8px 13px;
+    font-size: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: .2s;
+}
+
+.example-btn:hover {
+    border-color: #ff4655;
+    color: #ff4655;
+}
+
+/* ERROS */
+
+.error-message {
+    margin: 20px auto;
+    max-width: 850px;
+    background: #361b21;
+    border: 1px solid #87343e;
+    padding: 15px;
+    color: #ff8790;
+    font-size: 13px;
+    border-radius: 4px;
+}
+
+.error-message span {
+    font-weight: 900;
+    margin-right: 10px;
+}
+
+/* RESULTADO */
+
+.agent-result {
+    margin: 35px auto;
+    max-width: 1000px;
+    min-height: 400px;
+    background: linear-gradient(120deg, #202029, #17171e);
+    border: 1px solid #34343e;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    animation: aparecer .5s ease;
+}
+
+.agent-image {
+    width: 45%;
+    min-height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle, #39303a, #191920 70%);
+}
+
+.agent-image img {
+    width: 100%;
+    max-height: 480px;
+    object-fit: contain;
+    transition: transform .3s;
+}
+
+.agent-image img:hover {
+    transform: scale(1.04);
+}
+
+.agent-details {
+    flex: 1;
+    padding: 40px;
+}
+
+.agent-details h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(40px, 6vw, 65px);
+    text-transform: uppercase;
+    margin: 12px 0;
+    line-height: 1;
+}
+
+.red-line {
+    height: 4px;
+    width: 55px;
+    background: #ff4655;
+    margin: 20px 0 28px;
+}
+
+.agent-details h3 {
+    font-size: 12px;
+    color: #ff4655;
+    letter-spacing: 2px;
+    margin-bottom: 13px;
+}
+
+.description {
+    color: #b9b9c2;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+.agent-status {
+    margin-top: 30px;
+    padding-top: 18px;
+    border-top: 1px solid #363640;
+    color: #8c8c96;
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+
+.status-dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    background: #48d597;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+
+/* RODAPÉ */
+
+footer {
+    margin-top: 70px;
+    padding: 25px 0;
+    border-top: 1px solid #292930;
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    color: #62626c;
+    font-size: 10px;
+    letter-spacing: 2px;
+}
+
+/* ANIMAÇÃO */
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* CELULAR */
+
+@media (max-width: 700px) {
+    .main-container {
+        padding: 0 18px;
+    }
+
+    .hero {
+        padding: 60px 0 35px;
+    }
+
+    .search-card {
+        padding: 20px;
+    }
+
+    .search-box {
+        flex-direction: column;
+    }
+
+    .search-box button {
+        padding: 15px;
+    }
+
+    .agent-result {
+        flex-direction: column;
+    }
+
+    .agent-image {
+        width: 100%;
+        min-height: 280px;
+    }
+
+    .agent-image img {
+        max-height: 350px;
+    }
+
+    .agent-details {
+        padding: 28px;
+    }
+
+    footer {
+        flex-direction: column;
+        text-align: center;
+    }
+}
